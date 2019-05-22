@@ -12,7 +12,7 @@ BEGIN {
     OBJECT = 2;
     PREDICATE = 3;
     print "---"
-    print "'schema': ["
+    print "- 'schema':"
 }
 
 # collapse subjects ...
@@ -41,24 +41,23 @@ END {
     n = asorti(s, t)
     for(i=1; i<=n; i++){
         subject = t[i]
-        print "- '" subject "':"
+        print "  - '" subject "':"
         delete(o);delete(objs);delete(ob)
         split(s[subject], o, SUBSEP)
         for(dd in o){objs[o[dd]]++} # dedup
         m = asorti(objs, ob)
         for(j=1; j<=m; j++){
             object = ob[j]
-            print "  - '" object "':"
+            print "    - '" object "':"
             delete(p);delete(preds);delete(prd)
             split(a[subject SUBSEP object], p, SUBSEP)
             for(dd in p){preds[p[dd]]++} # dedup
             x = asorti(preds, prd)
             for(k=1; k<=x; k++){
                 predicate = prd[k]
-                print "    - '" predicate "'"
+                print "      - '" predicate "'"
             }
         }
     }
-    print "]"
     print "..."
 }
