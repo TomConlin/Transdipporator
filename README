@@ -56,7 +56,7 @@ Perhaps more helpful will be what I hear refered to as:
 
 The script `tina.awk` takes a list of triples and
 (by default) keys the third column with
-a tab indented joining of the first two (columns).
+a space indented joining of the first two (columns).
 
 a list of triples
 
@@ -76,52 +76,55 @@ BASE	HP	RO:0003304
 
 ```
 
-is transformed to a tab indented structure
+Is transformed to a yaml structure
 
 ```
-./tina.awk  data/s_o_p.tab | head -21
-APB
-	NCBITaxon
-		rdf:type
-APO
-	UPHENO
-		rdfs:subClassOf
-AQTLPub
-	IAO
-		rdf:type
-AQTLTrait
-	CMO
-		oboInOwl:hasDbXref
-AQTLTrait
-	LPT
-		oboInOwl:hasDbXref
-BASE
-	BNODE
-		GENO:0000382
-BASE
-	EFO
-		RO:0003304
+./tina.awk  data/s_o_p.tab
+---
+- 'schema':
+  - 'APB':
+    - 'NCBITaxon':
+      - 'rdf:type'
+  - 'APO':
+    - 'UPHENO':
+      - 'rdfs:subClassOf'
+  - 'AQTLPub':
+    - 'IAO':
+      - 'rdf:type'
 
+  - 'Coriell':
+    - 'BNODE':
+      - 'RO:0001000'
+    - 'CL':
+      - 'RO:0001000'
+    - 'CLO':
+      - 'RO:0001000'
+      - 'rdf:type'
+    - 'OMIM':
+      - 'RO:0003301'
+  - 'CoriellCollection':
+    - 'Coriell':
+      - 'RO:0002351'
+    - 'ERO':
+      - 'rdf:type'
+  - 'CoriellFamily':
+    - 'PCO':
+      - 'rdf:type'
+  - 'DECIPHER':
+    - 'HP':
+      - 'RO:0000091'
+      - 'RO:0002200'
+    - 'SIO':
+      - 'rdf:type'
+  - 'DOI':
+    - 'IAO':
+      - 'rdf:type'
 ```
 
 
-If a subject to object association has multiple predicates
-then all are listed.
-
-for example:
-
-```
-
-ClinVarVariant
-        ORPHA
-                GENO:0000840
-                GENO:0000841
-                GENO:0000843
-                GENO:0000844
-
-```
-
-
+Which lends itself to assisting with graph traversal queries
+by enumerating the node types one hop from your current node
+and by which type of edges.
 
 
 

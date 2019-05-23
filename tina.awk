@@ -1,6 +1,7 @@
 #! /usr/bin/gawk -f
 # tina.awk
 # Tab Indented Node Associations
+# Okay so it evolved into space indented yaml. Such is life.
 
 # usage:
 # ./tina.awk  data/s_o_p.tab > dipper_predicate_lists_201901.yaml
