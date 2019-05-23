@@ -3,6 +3,7 @@
 Translator is talking about describing a knoweledge graphs contents
 by posting metadata as json
 
+```
 Schema [
     Subject [
         Object [
@@ -11,23 +12,23 @@ Schema [
         ]
     ]
 ]
-
+```
 
 With the GraphViz dot files I have some of this,
 including counts, just in a different format.
 
 It makes little (visual) sense to create a Monarch graph combining all of the sub
 graphs as people already seem to struggle with them individually.
-But I always wanted to see it anyway and this is aa good an excuse as any.
+But I always wanted to see it anyway and this is as good an excuse as any.
 
 
 for each dot file pull out the edge declarations
 
-    the owl declarations LITERALS and one off http-iri are not helpful
+    the owl declarations LITERALS and one off http-iri are not so helpful
     the counts are interesting to me but not immediatly relevent to translator
 
-
-# isolate the subject,object and predicates of intrest
+```
+# isolate the subject,object and predicates of interest
 grep ' -> ' data/dot_201901/*.gv|
     cut -f2- -d ':'|
     egrep -v 'owl|LITERAL|http'|
@@ -43,10 +44,12 @@ wc -l < data/s_o_p.tab
 cut -f1,2 data/s_o_p.tab | sort -u | wc -l
 584
 
-# I would look at thatthe
+# I would look at that
 cut -f1,2 data/s_o_p.tab | sort -u |potodot.awk > namespace_transition.gv
+```
 
- still pretty dense, but shows the roots and nodes
+
+Still pretty dense, but shows the roots and leaf nodes
 
 
 ########################################################
@@ -123,8 +126,8 @@ Is transformed to a yaml structure
 
 
 Which lends itself to assisting with graph traversal queries
-by enumerating the node types one hop from your current node
-and by which type of edges.
+by listing the possible node types one hop from your current node
+via which type of edges.
 
 
 
