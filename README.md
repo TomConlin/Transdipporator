@@ -1,6 +1,6 @@
 ## Transdipporator
 
-Translator is talking about describing a knoweledge graphs contents
+Translator is talking about describing a knowledge graphs contents
 by posting metadata as json
 
 ```
@@ -25,15 +25,19 @@ But I always wanted to see it anyway and this is as good an excuse as any.
 for each dot file pull out the edge declarations
 
     the owl declarations LITERALS and one off http-iri are not so helpful
-    the counts are interesting to me but not immediatly relevent to translator
+    the counts are interesting to me but not immediately relevant to translator
 
 ```
 # isolate the subject,object and predicates of interest
-grep ' -> ' data/dot_201901/*.gv|
+
+RELEASE=201908
+
+grep ' -> ' data/dot_$RELEASE/*.gv |
     cut -f2- -d ':'|
     egrep -v 'owl|LITERAL|http'|
     cut -f1 -d'('|
     sed 's| -> |\t|g;s| \[label\=\"|\t|g'|
+    cut -f1 -d '!' |
     sort -u > data/s_o_p.tab
 
 # howmany distinct edge species
@@ -42,7 +46,7 @@ wc -l < data/s_o_p.tab
 
 # howmamy namespace transitions
 cut -f1,2 data/s_o_p.tab | sort -u | wc -l
-584
+595
 
 # I would look at that
 cut -f1,2 data/s_o_p.tab | sort -u |potodot.awk > namespace_transition.gv
@@ -54,7 +58,7 @@ Still pretty dense, but shows the roots and leaf nodes
 
 ########################################################
 
-Perhaps more helpful will be what I hear refered to as:
+Perhaps more helpful will be what I hear refereed to as:
      the "predicate list"
 
 The script `tina.awk` takes a list of triples and
@@ -82,7 +86,7 @@ BASE	HP	RO:0003304
 Is transformed to a yaml structure
 
 ```
-./tina.awk  data/s_o_p.tab
+./tina.awk  data/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
 ---
 - 'schema':
   - 'APB':
@@ -128,6 +132,11 @@ Is transformed to a yaml structure
 Which lends itself to assisting with graph traversal queries
 by listing the possible node types one hop from your current node
 via which type of edges.
+------------------------------------------------
 
+Diversion:
+Used to explore what is a "Biolink Category" anyway.
+
+-----------------------------------------------
 
 
