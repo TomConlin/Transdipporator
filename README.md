@@ -63,6 +63,8 @@ cut -f1,2 data/s_o_p.tab | sort -u |potodot.awk > namespace_transition.gv
 
 Still pretty dense, but shows the roots and leaf nodes
 
+dot -T svg namespace_transition.gv > namespace_transition.svg
+
 
 ########################################################
 
