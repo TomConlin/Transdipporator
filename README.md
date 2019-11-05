@@ -30,9 +30,17 @@ for each dot file pull out the edge declarations
 ```
 # isolate the subject,object and predicates of interest
 
-RELEASE=201908
+RELEASE=201910
+ARCHIVE=https://archive.monarchinitiative.org
 
-grep ' -> ' data/dot_$RELEASE/*.gv |
+
+mkdir data/dot_$RELEASE
+cd  data/dot_$RELEASE
+wget -r -np "$ARCHIVE/$RELEASE/visual_reduction/release/"
+ln -s archive.monarchinitiative.org/$RELEASE/visual_reduction/release release
+cd - 
+
+grep ' -> ' data/dot_$RELEASE/release/*.gv |
     cut -f2- -d ':'|
     egrep -v 'owl|LITERAL|http'|
     cut -f1 -d'('|
@@ -42,11 +50,11 @@ grep ' -> ' data/dot_$RELEASE/*.gv |
 
 # howmany distinct edge species
 wc -l < data/s_o_p.tab
-1065
+1130
 
 # howmamy namespace transitions
 cut -f1,2 data/s_o_p.tab | sort -u | wc -l
-595
+655
 
 # I would look at that
 cut -f1,2 data/s_o_p.tab | sort -u |potodot.awk > namespace_transition.gv
