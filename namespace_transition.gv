@@ -1,6 +1,6 @@
  digraph  {
 /***
-	Tue Nov  5 10:11:44 PST 2019
+	Sat Feb  1 16:28:30 PST 2020
 	 
 ***/
 	APB -> NCBITaxon ;
@@ -13,10 +13,8 @@
 	AspGD_REF -> IAO ;
 	BASE -> BNODE ;
 	BASE -> dbSNP ;
-	BASE -> DOID ;
 	BASE -> EFO ;
 	BASE -> ENSEMBL ;
-	BASE -> foaf ;
 	BASE -> GO ;
 	BASE -> HGNC ;
 	BASE -> HP ;
@@ -34,7 +32,6 @@
 	BNODE -> EFO ;
 	BNODE -> ERO ;
 	BNODE -> faldo ;
-	BNODE -> FlyBase ;
 	BNODE -> foaf ;
 	BNODE -> GENO ;
 	BNODE -> GO ;
@@ -42,6 +39,7 @@
 	BNODE -> IAO ;
 	BNODE -> IMPC ;
 	BNODE -> IMPRESS_parameter ;
+	BNODE -> IMPRESS_parameters ;
 	BNODE -> IMPRESS_procedure ;
 	BNODE -> IMPRESS_protocol ;
 	BNODE -> KEGG_path ;
@@ -98,6 +96,7 @@
 	ClinVarVariant -> OMIMPS ;
 	ClinVarVariant -> ORPHA ;
 	ClinVarVariant -> SO ;
+	ComplexPortal -> GO ;
 	Coriell -> BNODE ;
 	Coriell -> CL ;
 	Coriell -> CLO ;
@@ -157,15 +156,7 @@
 	ENSEMBL -> EnsemblGenome ;
 	ENSEMBL -> FBbt ;
 	ENSEMBL -> FlyBase ;
-	EnsemblGenome -> dictyBase ;
-	EnsemblGenome -> EcoGene ;
-	EnsemblGenome -> EnsemblGenome ;
-	EnsemblGenome -> FlyBase ;
 	EnsemblGenome -> NCBITaxon ;
-	EnsemblGenome -> PomBase ;
-	EnsemblGenome -> SGD ;
-	EnsemblGenome -> TAIR ;
-	EnsemblGenome -> WormBase ;
 	ENSEMBL -> GO ;
 	ENSEMBL -> HGNC ;
 	ENSEMBL -> MA ;
@@ -210,6 +201,8 @@
 	FlyBase -> WormBase ;
 	FlyBase -> Xenbase ;
 	FlyBase -> ZFIN ;
+	GeneReviews -> DOID ;
+	GeneReviews -> SIO ;
 	GO -> GO ;
 	GO_REF -> IAO ;
 	GWAS -> EFO ;
@@ -260,6 +253,8 @@
 	KEGG_path -> KEGG_ds ;
 	KEGG_path -> KEGG_img ;
 	KEGG_path -> PW ;
+	MESH -> MESH ;
+	MESH -> OMIM ;
 	MGI -> BNODE ;
 	MGI -> dictyBase ;
 	MGI -> DOID ;
@@ -294,34 +289,13 @@
 	MonarchArchive -> CoriellCollection ;
 	MonarchArchive -> dcat ;
 	MonarchArchive -> dctypes ;
-	MonarchArchive -> ftp_ftp_ebi_ac_uk_pub_databases_genenames_new_tsv_hgnc_complete_set_txt ;
 	MonarchArchive -> ftp_ftp_ebi_ac_uk_pub_databases_genenames_README_txt ;
-	MonarchArchive -> ftp_ftp_ebi_ac_uk_pub_databases_gwas_releases_latest_gwas_catalog_associations_ontology_annotated_tsv ;
-	MonarchArchive -> ftp_ftp_ebi_ac_uk_pub_databases_impc_release_8_0_csv_ALL_genotype_phenotype_csv_gz ;
-	MonarchArchive -> ftp_ftp_ebi_ac_uk_pub_databases_impc_release_8_0_csv_checksum_md5 ;
-	MonarchArchive -> ftp_ftp_flybase_net_releases_current_precomputed_files_alleles_fbal_to_fbgn_fb_2019_05_tsv_gz ;
-	MonarchArchive -> ftp_ftp_flybase_net_releases_current_precomputed_files_human_disease_disease_model_annotations_fb_2019_05_tsv_gz ;
-	MonarchArchive -> ftp_ftp_flybase_net_releases_current_precomputed_files_references_fbrf_pmid_pmcid_doi_fb_2019_05_tsv_gz ;
-	MonarchArchive -> ftp_ftp_flybase_net_releases_current_precomputed_files_species_species_ab_gz ;
-	MonarchArchive -> ftp_ftp_ncbi_nih_gov_gene_DATA_GENE_INFO_Mammalia_Bos_taurus_gene_info_gz ;
-	MonarchArchive -> ftp_ftp_ncbi_nih_gov_gene_DATA_GENE_INFO_Mammalia_Sus_scrofa_gene_info_gz ;
-	MonarchArchive -> ftp_ftp_ncbi_nih_gov_gene_DATA_GENE_INFO_Non_mammalian_vertebrates_Gallus_gallus_gene_info_gz ;
-	MonarchArchive -> ftp_ftp_rgd_mcw_edu_pub_data_release_annotated_rgd_objects_by_ontology_rattus_genes_mp ;
-	MonarchArchive -> ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_CHECKSUMS ;
-	MonarchArchive -> ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_ONTOLOGY_disease_association_WS272_wb ;
-	MonarchArchive -> ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_ONTOLOGY_phenotype_association_WS272_wb ;
-	MonarchArchive -> ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_ONTOLOGY_rnai_phenotypes_WS272_wb ;
-	MonarchArchive -> ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_species_c_elegans_PRJNA13758_annotation_c_elegans_PRJNA13758_WS272_geneIDs_txt_gz ;
-	MonarchArchive -> ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_species_c_elegans_PRJNA13758_annotation_c_elegans_PRJNA13758_WS272_xrefs_txt_gz ;
-	MonarchArchive -> ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_species_c_elegans_PRJNA13758_c_elegans_PRJNA13758_WS272_annotations_gff3_gz ;
-	MonarchArchive -> IMPC ;
+	MonarchArchive -> GeneReviews ;
 	MonarchArchive -> jdbc_postgresql_mgi_adhoc_jax_org_5432_mgd ;
 	MonarchArchive -> jdbc_postgresql_nif_db_crbs_ucsd_edu_5432_disco_crawler ;
 	MonarchArchive -> MonarchArchive ;
 	MonarchArchive -> MonarchLogoRepo ;
 	MonarchArchive -> MPD ;
-	MonarchArchive -> NCBINBK ;
-	MonarchArchive -> OBO ;
 	MonarchArchive -> PMID ;
 	MonarchArchive -> ZFIN ;
 	MONARCH -> AspGD ;
@@ -336,6 +310,7 @@
 	MONARCH -> CL ;
 	MONARCH -> ClinVar ;
 	MONARCH -> ClinVarVariant ;
+	MONARCH -> ComplexPortal ;
 	MONARCH -> dbSNP ;
 	MONARCH -> DECIPHER ;
 	MONARCH -> dictyBase ;
@@ -350,6 +325,7 @@
 	MONARCH -> FBcv ;
 	MONARCH -> FBdv ;
 	MONARCH -> FlyBase ;
+	MONARCH -> GeneReviews ;
 	MONARCH -> GENO ;
 	MONARCH -> GO ;
 	MONARCH -> GO_REF ;
@@ -363,6 +339,7 @@
 	MONARCH -> J ;
 	MONARCH -> MA ;
 	MONARCH -> MedGen ;
+	MONARCH -> MESH ;
 	MONARCH -> MGI ;
 	MONARCH -> MONARCH ;
 	MONARCH -> MONDO ;
@@ -374,7 +351,6 @@
 	MONARCH -> NCBIBook ;
 	MONARCH -> NCBIGene ;
 	MONARCH -> NCBIGenome ;
-	MONARCH -> NCBINBK ;
 	MONARCH -> NCBITaxon ;
 	MONARCH -> NCIT ;
 	MONARCH -> OBA ;
@@ -445,8 +421,6 @@
 	NCBIGenome -> MONARCH ;
 	NCBIGenome -> NCBITaxon ;
 	NCBIGenome -> SO ;
-	NCBINBK -> DOID ;
-	NCBINBK -> SIO ;
 	NCIMR -> NCBITaxon ;
 	OMIA -> BNODE ;
 	OMIA_breed -> NCBITaxon ;
@@ -507,16 +481,15 @@
 	pigQTL -> pigQTL ;
 	pigQTL -> SO ;
 	PMID -> Coriell ;
+	PMID -> GeneReviews ;
 	PMID -> HGNC ;
 	PMID -> IAO ;
 	PMID -> KEGG_path ;
 	PMID -> NCBIGene ;
-	PMID -> NCBINBK ;
 	PMID -> OMIA ;
 	PMID -> OMIA_breed ;
 	PMID -> OMIM ;
 	PomBase -> ENSEMBL ;
-	PomBase -> EnsemblGenome ;
 	PomBase -> FlyBase ;
 	PomBase -> GO ;
 	PomBase -> HGNC ;
@@ -558,7 +531,6 @@
 	RGD -> ZFIN ;
 	SGD -> APO ;
 	SGD -> ENSEMBL ;
-	SGD -> EnsemblGenome ;
 	SGD -> FlyBase ;
 	SGD -> GO ;
 	SGD -> HGNC ;
@@ -621,7 +593,6 @@
 	WormBase -> Xenbase ;
 	WormBase -> ZFIN ;
 	Xenbase -> ENSEMBL ;
-	Xenbase -> EnsemblGenome ;
 	Xenbase -> FlyBase ;
 	Xenbase -> HGNC ;
 	Xenbase -> MGI ;
@@ -665,8 +636,6 @@
 	LPT [penwidth=4];
 	NCBITaxon [penwidth=4];
 	IAO [penwidth=4];
-	DOID [penwidth=4];
-	foaf [penwidth=4];
 	HP [penwidth=4];
 	NCBITaxon [penwidth=4];
 	SO [penwidth=4];
@@ -678,6 +647,7 @@
 	HP [penwidth=4];
 	IAO [penwidth=4];
 	IMPRESS_parameter [penwidth=4];
+	IMPRESS_parameters [penwidth=4];
 	IMPRESS_procedure [penwidth=4];
 	IMPRESS_protocol [penwidth=4];
 	MP [penwidth=4];
@@ -737,6 +707,8 @@
 	NCBITaxon [penwidth=4];
 	OBO [penwidth=4];
 	SO [penwidth=4];
+	DOID [penwidth=4];
+	SIO [penwidth=4];
 	IAO [penwidth=4];
 	NCBITaxon [penwidth=4];
 	SO [penwidth=4];
@@ -767,31 +739,11 @@
 	NCBITaxon [penwidth=4];
 	dcat [penwidth=4];
 	dctypes [penwidth=4];
-	ftp_ftp_ebi_ac_uk_pub_databases_genenames_new_tsv_hgnc_complete_set_txt [penwidth=4];
 	ftp_ftp_ebi_ac_uk_pub_databases_genenames_README_txt [penwidth=4];
-	ftp_ftp_ebi_ac_uk_pub_databases_gwas_releases_latest_gwas_catalog_associations_ontology_annotated_tsv [penwidth=4];
-	ftp_ftp_ebi_ac_uk_pub_databases_impc_release_8_0_csv_ALL_genotype_phenotype_csv_gz [penwidth=4];
-	ftp_ftp_ebi_ac_uk_pub_databases_impc_release_8_0_csv_checksum_md5 [penwidth=4];
-	ftp_ftp_flybase_net_releases_current_precomputed_files_alleles_fbal_to_fbgn_fb_2019_05_tsv_gz [penwidth=4];
-	ftp_ftp_flybase_net_releases_current_precomputed_files_human_disease_disease_model_annotations_fb_2019_05_tsv_gz [penwidth=4];
-	ftp_ftp_flybase_net_releases_current_precomputed_files_references_fbrf_pmid_pmcid_doi_fb_2019_05_tsv_gz [penwidth=4];
-	ftp_ftp_flybase_net_releases_current_precomputed_files_species_species_ab_gz [penwidth=4];
-	ftp_ftp_ncbi_nih_gov_gene_DATA_GENE_INFO_Mammalia_Bos_taurus_gene_info_gz [penwidth=4];
-	ftp_ftp_ncbi_nih_gov_gene_DATA_GENE_INFO_Mammalia_Sus_scrofa_gene_info_gz [penwidth=4];
-	ftp_ftp_ncbi_nih_gov_gene_DATA_GENE_INFO_Non_mammalian_vertebrates_Gallus_gallus_gene_info_gz [penwidth=4];
-	ftp_ftp_rgd_mcw_edu_pub_data_release_annotated_rgd_objects_by_ontology_rattus_genes_mp [penwidth=4];
-	ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_CHECKSUMS [penwidth=4];
-	ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_ONTOLOGY_disease_association_WS272_wb [penwidth=4];
-	ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_ONTOLOGY_phenotype_association_WS272_wb [penwidth=4];
-	ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_ONTOLOGY_rnai_phenotypes_WS272_wb [penwidth=4];
-	ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_species_c_elegans_PRJNA13758_annotation_c_elegans_PRJNA13758_WS272_geneIDs_txt_gz [penwidth=4];
-	ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_species_c_elegans_PRJNA13758_annotation_c_elegans_PRJNA13758_WS272_xrefs_txt_gz [penwidth=4];
-	ftp_ftp_wormbase_org_pub_wormbase_releases_current_production_release_species_c_elegans_PRJNA13758_c_elegans_PRJNA13758_WS272_annotations_gff3_gz [penwidth=4];
 	jdbc_postgresql_mgi_adhoc_jax_org_5432_mgd [penwidth=4];
 	jdbc_postgresql_nif_db_crbs_ucsd_edu_5432_disco_crawler [penwidth=4];
 	MonarchLogoRepo [penwidth=4];
 	MPD [penwidth=4];
-	OBO [penwidth=4];
 	BFO [penwidth=4];
 	CL [penwidth=4];
 	ClinVar [penwidth=4];
@@ -834,15 +786,12 @@
 	SO [penwidth=4];
 	NCBITaxon [penwidth=4];
 	SO [penwidth=4];
-	DOID [penwidth=4];
-	SIO [penwidth=4];
 	NCBITaxon [penwidth=4];
 	NCBITaxon [penwidth=4];
 	CL [penwidth=4];
 	DOID [penwidth=4];
 	GENO [penwidth=4];
 	HP [penwidth=4];
-	MESH [penwidth=4];
 	MONDO [penwidth=4];
 	MP [penwidth=4];
 	MPATH [penwidth=4];
