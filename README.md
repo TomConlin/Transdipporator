@@ -143,6 +143,8 @@ Is transformed to a yaml structure
 Which lends itself to assisting with graph traversal queries
 by listing the possible node types one hop from your current node
 via which type of edges.
+
+
 ------------------------------------------------
 
 # Second iteration
