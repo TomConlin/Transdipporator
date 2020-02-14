@@ -172,7 +172,7 @@ To use :
 
 Will default to fetching what it finds in: https://archive.monarchinitiative.org/beta/
 
-arfuments for other directories  in archive.monarchinitiative.org may be given
+arguments for other directories in archive.monarchinitiative.org may be given
 
 
 ```
@@ -187,7 +187,7 @@ or
 
 ```
 
-Results will be found in a  `./data/` directory under the appropiate datastamp.
+Results will be found in a  `./data/` directory under the appropriate datastamp.
 
 
 
