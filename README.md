@@ -145,8 +145,51 @@ by listing the possible node types one hop from your current node
 via which type of edges.
 ------------------------------------------------
 
-Diversion:
-Used to explore what is a "Biolink Category" anyway.
+# Second iteration
+
+To facilitate a more automate-able approach write a script which by default pulls
+metadata files from archive.mi/beta in the form of dipper's  *_dataset.ttl and *_count.ttl
+files and merges them into a `dipper_rdf_dataset.ttl` file with the `scripts/turtle_merge.awk`
+script I moves out of dipper/scripts because it is has never been used there.
+
+At present I do not have further plans for the `dipper_rdf_dataset.ttl` but things like
+that end up useful eventually.
+
+We then query this consolidated metadata file for the datestamp of the release and
+create a directory under `./data/` to store the `release` set of GraphViz files for the
+dipper run.
+
+The collection of graphviz files are reduced to two tables, the original one  `s_o_p.tab`
+mentioned above and a second that does not throw away the ingest name and instance count
+named `g_s_o_p_c.tab`  which I hope to use to make some generalizations.
+
+To use :
+
+```
+ ./scripts/fomo.sh
+
+```
+
+Will default to fetching what it finds in: https://archive.monarchinitiative.org/beta/
+
+arfuments for other directories  in archive.monarchinitiative.org may be given
+
+
+```
+ ./scripts/fomo.sh  latest
+
+```
+
+or
+
+```
+ ./scripts/fomo.sh  201911
+
+```
+
+Results will be found in a  `./data/` directory under the appropiate datastamp.
+
+
 
 -----------------------------------------------
 
