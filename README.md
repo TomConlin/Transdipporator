@@ -30,31 +30,32 @@ for each dot file pull out the edge declarations
 ```
 # isolate the subject,object and predicates of interest
 
-RELEASE=201910
+RELEASE=202001
 ARCHIVE=https://archive.monarchinitiative.org
 
 
 mkdir data/dot_$RELEASE
 cd  data/dot_$RELEASE
 wget -r -np "$ARCHIVE/$RELEASE/visual_reduction/release/"
+unlink release
 ln -s archive.monarchinitiative.org/$RELEASE/visual_reduction/release release
-cd - 
+cd -
 
 grep ' -> ' data/dot_$RELEASE/release/*.gv |
     cut -f2- -d ':'|
     egrep -v 'owl|LITERAL|http'|
     cut -f1 -d'('|
-    sed 's| -> |\t|g;s| \[label\=\"|\t|g'|
+    sed 's| -> |\t|g;s| \[label=<|\t|g'|
     cut -f1 -d '!' |
     sort -u > data/s_o_p.tab
 
 # howmany distinct edge species
 wc -l < data/s_o_p.tab
-1130
+1082
 
-# howmamy namespace transitions
+# howmany namespace transitions
 cut -f1,2 data/s_o_p.tab | sort -u | wc -l
-655
+626
 
 # I would look at that
 cut -f1,2 data/s_o_p.tab | sort -u |potodot.awk > namespace_transition.gv
@@ -68,7 +69,7 @@ dot -T svg namespace_transition.gv > namespace_transition.svg
 
 ########################################################
 
-Perhaps more helpful will be what I hear refereed to as:
+Perhaps more helpful will be what I hear refered to as:
      the "predicate list"
 
 The script `tina.awk` takes a list of triples and
@@ -96,7 +97,7 @@ BASE	HP	RO:0003304
 Is transformed to a yaml structure
 
 ```
-./tina.awk  data/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
+./scripts/tina.awk  data/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
 ---
 - 'schema':
   - 'APB':
