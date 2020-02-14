@@ -19,11 +19,11 @@ fi
 cd ./data/ || exit
 
 # Step 1)
-#   fetch [beta|latest|releasee|YYYYMM]   rdf metadata,
-#   Use to determine the datestamp of the dipper dataset targeted
-#   (overkill for this usecase but might become its own thing)
+#   fetch [_beta_|latest|releasee|YYYYMM]   rdf metadata,
+#   Builds a file in which determine the datestamp of the dipper dataset targeted
+#   (overkill for this usecase but the result might become its own thing)
 
-TARGET=beta
+TARGET=${1:-beta}
 
 OUT=$(mktemp -p . -d)
 (
