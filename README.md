@@ -27,17 +27,23 @@ for each dot file pull out the edge declarations
     the owl declarations LITERALS and one off http-iri are not so helpful
     the counts are interesting to me but not immediately relevant to translator
 
-```
-# isolate the subject,object and predicates of interest
 
-RELEASE=202001
+These next manual steps of fetching and prepareing the data
+has been superceeded.
+
+
+
+```
+# isolate the subject, object and predicates of interest
+
+RELEASE=202002
 ARCHIVE=https://archive.monarchinitiative.org
 
 
 mkdir data/dot_$RELEASE
 cd  data/dot_$RELEASE
 wget -r -np "$ARCHIVE/$RELEASE/visual_reduction/release/"
-unlink release
+unlink
 ln -s archive.monarchinitiative.org/$RELEASE/visual_reduction/release release
 cd -
 
@@ -169,6 +175,7 @@ To use :
 
 ```
  ./scripts/fomo.sh
+ ./scripts/tina.awk  data/"$RELEASE"/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
 
 ```
 
@@ -178,8 +185,8 @@ arguments for other directories in archive.monarchinitiative.org may be given
 
 
 ```
- ./scripts/fomo.sh  latest
-
+ ./scripts/fomo.sh  $RELEASE
+./scripts/tina.awk  data/"$RELEASE"/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
 ```
 
 or
@@ -195,4 +202,9 @@ Results will be found in a  `./data/` directory under the appropriate datastamp.
 
 -----------------------------------------------
 
+One use is another view of what has changed.
 
+meld dipper_predicate_lists_202001.yaml dipper_predicate_lists_202002.yaml
+
+
+meld data/202001/g_s_o_p_c.tab  data/202002/g_s_o_p_c.tab
