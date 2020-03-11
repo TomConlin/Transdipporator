@@ -19,9 +19,9 @@ fi
 cd ./data/ || exit
 
 # Step 1)
-#   fetch [_beta_|latest|releasee|YYYYMM]   rdf metadata,
+#   fetch [_beta_|latest|release|YYYYMM]   rdf metadata,
 #   Builds a file in which determine the datestamp of the dipper dataset targeted
-#   (overkill for this usecase but the result might become its own thing)
+#   (overkill for this use case but the result might become its own thing)
 
 TARGET=${1:-beta}
 
@@ -49,7 +49,7 @@ mv "./$OUT/" "./$RELEASE/dipper_rdf_dataset"
 )
 
 # step 3)
-#   filter and reformat to a table sutible for scripts/tina.awk   (s_o_p.tab)
+#   filter and reformat to a table suitable for scripts/tina.awk   (s_o_p.tab)
 #   Again with a bit more context, which ingest and how many
 
 grep ' -> ' "$RELEASE"/graphviz/*.gv |
