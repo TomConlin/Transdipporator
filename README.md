@@ -30,7 +30,7 @@ for each dot file pull out the edge declarations
 ```
 # isolate the subject,object and predicates of interest
 
-RELEASE=202001
+RELEASE=202003
 ARCHIVE=https://archive.monarchinitiative.org
 
 
@@ -51,11 +51,11 @@ grep ' -> ' data/dot_$RELEASE/release/*.gv |
 
 # howmany distinct edge species
 wc -l < data/s_o_p.tab
-1082
+918  (was 1082)
 
 # howmany namespace transitions
 cut -f1,2 data/s_o_p.tab | sort -u | wc -l
-626
+596 (was 626)
 
 # I would look at that
 cut -f1,2 data/s_o_p.tab | sort -u |potodot.awk > namespace_transition.gv
@@ -152,7 +152,7 @@ via which type of edges.
 To facilitate a more automate-able approach write a script which by default pulls
 metadata files from archive.mi/beta in the form of dipper's  *_dataset.ttl and *_count.ttl
 files and merges them into a `dipper_rdf_dataset.ttl` file with the `scripts/turtle_merge.awk`
-script I moves out of dipper/scripts because it is has never been used there.
+script I moved out of dipper/scripts because it is has never been used there.
 
 At present I do not have further plans for the `dipper_rdf_dataset.ttl` but things like
 that end up useful eventually.
