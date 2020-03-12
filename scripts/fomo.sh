@@ -62,7 +62,6 @@ grep ' -> ' "$RELEASE"/graphviz/*.gv |
 
 
 grep ' -> ' "$RELEASE"/graphviz/*.gv |
-    cut -c22- |
-    sed 's|\.gv:|\t|g;s| -> |\t|g;s| \[label=<|\t|g;s| (\([0-9]*\))>];|\t\1|g' |
+    sed 's|[[:digit:]]\{6\}/graphviz/||;s|.gv:|\t|;s| -> |\t|;s| \[label=<|\t|;s| (\([0-9]*\))>];|\t\1|g'|
     sort -u > "$RELEASE"/g_s_o_p_c.tab
 
