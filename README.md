@@ -185,7 +185,7 @@ arguments for other directories in archive.monarchinitiative.org may be given
 
 
 ```
- ./scripts/fomo.sh  $RELEASE
+ ./scripts/fomo.sh  beta 202006
 ./scripts/tina.awk  data/"$RELEASE"/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
 ```
 
@@ -198,8 +198,6 @@ or
 
 Results will be found in a  `./data/` directory under the appropriate datastamp.
 
-
-
 -----------------------------------------------
 
 One use is another view of what has changed.
@@ -208,3 +206,38 @@ meld dipper_predicate_lists_202001.yaml dipper_predicate_lists_202002.yaml
 
 
 meld data/202001/g_s_o_p_c.tab  data/202002/g_s_o_p_c.tab
+
+------------------------------------------------------------------------------
+to see if we can squeeze a bit more out of this  
+convert the yaml to json and use json tools to see if we can notice anythiing
+
+ see yaml2json.py in scripts/  
+ not sure how useful this is going to be   
+ is kinda looking at metadata on partial edges  (s->o  & o->p)
+
+```
+scripts/yaml2json.py  dipper_predicate_lists_$RELEASE.yaml |
+	json2xpath.jq |
+	xpath2dot.awk  > dipper_predicate_lists_$RELEASE.gv
+```
+
+with a couple of them we can at least look at the diff  
+
+```
+/data/Projects//Monarch/dipper/scripts/deltadot.awk \
+	dipper_predicate_lists_202002.gv \
+	dipper_predicate_lists_202006.gv > dipper_predicate_diff_2020_02-06.gv
+```
+**note**:
+ deltadot.awk is expecting embedded lables; so something like  
+`sed -i 's/ ([0-9]*)> / [ /' dipper_predicate_lists_$RELEASE.gv` ...
+
+
+hmmm still alot. reduce it down to only bits that have come or gone  
+
+```
+xdot <(grep -v 'color="black"' dipper_predicate_diff_2020_02-06.gv)
+```
+
+
+
