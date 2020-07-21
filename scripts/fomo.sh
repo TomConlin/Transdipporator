@@ -60,7 +60,7 @@ mv "$OUT/" "./$RELEASE/dipper_rdf_dataset"
 
 # echo "Step 3)" >&2
 #   filter and reformat to a table sutible for scripts/tina.awk   (s_o_p.tab)
-#   Again with a bit more context, which ingest and how many
+#   And again with a bit more context, which ingest and how many
 
 grep ' -> ' ./"$RELEASE"/graphviz/*.gv |
     cut -f2- -d ':'|
