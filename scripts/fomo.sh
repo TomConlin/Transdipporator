@@ -3,10 +3,12 @@
 # Fetch Ontology Metadata Overview
 
 set -e
+set -u
+set -o pipefail
 
 ARCHIVE=https://archive.monarchinitiative.org
 
-# to call other scripts in the same source directory
+# to call other scripts in the same source directory this is in
 SCRIPTS=$(dirname $(realpath "${BASH_SOURCE[0]}"))
 
 # echo "Step 0)" >&2
@@ -26,6 +28,7 @@ cd ./data/ || exit
 # there are different datestamps in the same release set.
 
 TARGET=${1:-beta}
+echo "Using  $TARGET/rdf/ at archive as dir to fetch _dataset and _counts from" >&2
 
 OUT=$(mktemp -p . -d)
 (
@@ -36,14 +39,17 @@ OUT=$(mktemp -p . -d)
 
 "$SCRIPTS"/turtle_merge.awk "$OUT"/*.ttl > "$OUT"/dipper_rdf_dataset.ttl
 
-YYYYMM=$(fgrep  "dcterms:created " "$OUT"/dipper_rdf_dataset.ttl|tr -d '.;-'|sort -u| cut -f2 -d'"'|cut -c1-6)
+YYYYMM=$(
+	fgrep  "dcterms:created " "$OUT"/dipper_rdf_dataset.ttl|
+	tr -d '.;-'|sort -u| cut -f2 -d'"'|cut -c1-6)
 
 if [ $(echo -n "$YYYYMM"|wc -l) != 0 ]; then
 	echo "!!! Warning !!!" >&2
 	echo "Multiple release dates found" >&2
 	echo "$YYYYMM" >&2
+	YYYYMM=$(echo "$YYYYMM" | head -1)
 fi
-RELEASE=${2:-echo "$YYYYMM" | head -1}
+RELEASE=${2:-"$YYYYMM"}
 echo "Using Release DateStamp of $RELEASE"
 
 # echo "Step 2)" >&2
@@ -73,3 +79,4 @@ grep ' -> ' ./"$RELEASE"/graphviz/*.gv |
 grep ' -> ' ./"$RELEASE"/graphviz/*.gv |
     sed 's|[[:digit:]]\{6\}/graphviz/||;s|.gv:|\t|;s| -> |\t|;s| \[label=<|\t|;s| (\([0-9]*\))>];|\t\1|g'|
     sort -u > ./"$RELEASE"/g_s_o_p_c.tab
+
