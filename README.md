@@ -1,5 +1,14 @@
 ## Transdipporator
 
+
+### tl;dr
+```
+ RELEASE=202007
+ ./scripts/fomo.sh   $RELEASE
+ ./scripts/tina.awk  data/"$RELEASE"/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
+```
+
+
 Translator is talking about describing a knowledge graphs contents
 by posting metadata as json
 
@@ -194,32 +203,25 @@ arguments for other directories in archive.monarchinitiative.org may be given
 
 
 ```
- ./scripts/fomo.sh  beta 202006
-./scripts/tina.awk  data/"$RELEASE"/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
-```
-
-or
-
-```
- ./scripts/fomo.sh  201911
-
+ RELEASE=202007
+ ./scripts/fomo.sh   $RELEASE
+ ./scripts/tina.awk  data/"$RELEASE"/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
 ```
 
 Results will be found in a  `./data/` directory under the appropriate datastamp.
 which allows the  preddicate list yaml to be generates.   
 
-```
-./scripts/tina.awk  data/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
-```
 
 
 One use is another view of what has changed.
 
-meld dipper_predicate_lists_202001.yaml dipper_predicate_lists_202002.yaml
+```
+PREVREL=202006
+meld dipper_predicate_lists_$PREVREL.yaml dipper_predicate_lists_$RELEASE.yaml
 
+meld data/$PREVREL/g_s_o_p_c.tab  data/$RELEASE/g_s_o_p_c.tab
 
-meld data/202001/g_s_o_p_c.tab  data/202002/g_s_o_p_c.tab
-
+```
 ------------------------------------------------------------------------------
 to see if we can squeeze a bit more out of this  
 convert the yaml to json and use json tools to see if we can notice anythiing
@@ -228,28 +230,35 @@ convert the yaml to json and use json tools to see if we can notice anythiing
  not sure how useful this is going to be   
  is kinda looking at metadata on partial edges  (s->o  & o->p)
 
+
+**note**:
+ deltadot.awk is expecting embedded lables; so something like  
+`sed -i 's/ ([0-9]*)> / [ /' dipper_predicate_lists_$RELEASE.gv` ...
+
 ```
 scripts/yaml2json.py  dipper_predicate_lists_$RELEASE.yaml |
 	json2xpath.jq |
-	xpath2dot.awk  > dipper_predicate_lists_$RELEASE.gv
+	xpath2dot.awk |
+	sed 's/ ([0-9]*)> / [ /' > dipper_predicate_lists_$RELEASE.gv
 ```
 
 with a couple of them we can at least look at the diff  
 
 ```
 /data/Projects//Monarch/dipper/scripts/deltadot.awk \
-	dipper_predicate_lists_202002.gv \
-	dipper_predicate_lists_202006.gv > dipper_predicate_diff_2020_02-06.gv
+	dipper_predicate_lists_$PREVREL.gv \
+	dipper_predicate_lists_$RELEASE.gv > dipper_predicate_diff_$PREVREL-$RELEASE.gv
+
+xdot dipper_predicate_diff_$PREVREL-$RELEASE.gv
+
 ```
-**note**:
- deltadot.awk is expecting embedded lables; so something like  
-`sed -i 's/ ([0-9]*)> / [ /' dipper_predicate_lists_$RELEASE.gv` ...
+
 
 
 hmmm still alot. reduce it down to only bits that have come or gone  
 
 ```
-xdot <(grep -v 'color="black"' dipper_predicate_diff_2020_02-06.gv)
+xdot <(grep -v 'color="black"' dipper_predicate_diff_PREVREL-$RELEASE.gv)
 ```
 
 
