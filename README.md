@@ -3,10 +3,13 @@
 
 ### tl;dr
 ```
- RELEASE=202007
+RELEASE=202009
+PREVREL=202007
+
  ./scripts/fomo.sh   $RELEASE
  ./scripts/tina.awk  data/"$RELEASE"/s_o_p.tab > "dipper_predicate_lists_$RELEASE.yaml"
 ```
+(then skip down past "Second Iteration")
 
 
 Translator is talking about describing a knowledge graphs contents
