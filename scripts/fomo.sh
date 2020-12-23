@@ -12,7 +12,7 @@ ARCHIVE=https://archive.monarchinitiative.org
 SCRIPTS=$(dirname $(realpath "${BASH_SOURCE[0]}"))
 
 # echo "Step 0)" >&2
-#   make sure we have a data dir to work in (is .gitignored)
+# make sure we have a data dir to work in (is .gitignored)
 
 if [ ! -d './data/' ] ; then
     echo "Making data dir"
@@ -28,29 +28,33 @@ cd ./data/ || exit
 # there are different datestamps in the same release set.
 
 TARGET=${1:-beta}
-echo "Using  $TARGET/rdf/ at archive as dir to fetch _dataset and _counts from" >&2
+echo "Using:  $ARCHIVE/$TARGET/rdf/ at archive as dir to fetch _dataset and _counts from" >&2
 
 OUT=$(mktemp -p . -d)
+# echo "temp dir is:  $OUT" >&2
+
 (
     cd "$OUT" || exit
-    wget --quiet --recursive --no-parent --timestamping --no-host-directories --cut-dirs=2 \
+    wget --recursive --no-parent --timestamping --no-host-directories --cut-dirs=2 \
         --accept "*_dataset.ttl,*_count.ttl" "$ARCHIVE/$TARGET"/rdf/
 )
 
 "$SCRIPTS"/turtle_merge.awk "$OUT"/*.ttl > "$OUT"/dipper_rdf_dataset.ttl
 
 YYYYMM=$(
-	fgrep  "dcterms:created " "$OUT"/dipper_rdf_dataset.ttl|
-	tr -d '.;-'|sort -u| cut -f2 -d'"'|cut -c1-6)
+    fgrep "dc:created " "$OUT"/dipper_rdf_dataset.ttl|
+    tr -d '.;-'| cut -f2 -d'"'|cut -c1-6 |sort -u
+)
 
 if [ $(echo -n "$YYYYMM"|wc -l) != 0 ]; then
-	echo "!!! Warning !!!" >&2
-	echo "Multiple release dates found" >&2
-	echo "$YYYYMM" >&2
-	YYYYMM=$(echo "$YYYYMM" | head -1)
+    echo "!!! Warning !!!" >&2
+    echo "Multiple release dates found" >&2
+    echo "$YYYYMM" >&2
+    YYYYMM=$(echo "$YYYYMM" | head -1)
 fi
+
 RELEASE=${2:-"$YYYYMM"}
-echo "Using Release DateStamp of $RELEASE"
+echo "Using Release DateStamp of $RELEASE" >&2
 
 # echo "Step 2)" >&2
 #   a. Use the release datestamp to create a space for the distilled rdf from $ARCHIVE
@@ -60,13 +64,12 @@ mkdir -p "./$RELEASE/graphviz"
 mv "$OUT/" "./$RELEASE/dipper_rdf_dataset"
 (
     cd "./$RELEASE/graphviz" || exit
-    wget --no-verbose --recursive --no-parent --timestamping --no-host-directories --cut-dirs=3 \
-        --accept "*.gv" "$ARCHIVE/$RELEASE"/visual_reduction/release/
+    wget --no-verbose --recursive --no-parent --timestamping --no-host-directories \
+        --cut-dirs=3 --accept "*.gv" "$ARCHIVE/$RELEASE"/visual_reduction/release/
 )
 
 # echo "Step 3)" >&2
-#   filter and reformat to a table sutible for scripts/tina.awk   (s_o_p.tab)
-#   And again with a bit more context, which ingest and how many
+#   filter and reformat to a table sutible for scripts/tina.awk <s_o_p.tab>
 
 grep ' -> ' ./"$RELEASE"/graphviz/*.gv |
     cut -f2- -d ':'|
@@ -76,7 +79,9 @@ grep ' -> ' ./"$RELEASE"/graphviz/*.gv |
     cut -f1 -d '!' |
     sort -u > "./$RELEASE"/s_o_p.tab
 
-grep ' -> ' ./"$RELEASE"/graphviz/*.gv |
+# And then again, but with a bit more context, which ingest and how many
+fgrep ' -> ' ./"$RELEASE"/graphviz/*.gv |
     sed 's|[[:digit:]]\{6\}/graphviz/||;s|.gv:|\t|;s| -> |\t|;s| \[label=<|\t|;s| (\([0-9]*\))>];|\t\1|g'|
     sort -u > ./"$RELEASE"/g_s_o_p_c.tab
 
+# echo "DONE." >&2
